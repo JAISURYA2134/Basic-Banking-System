@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Banking System</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+    <!-- AOS  -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+
+</head>
+<body onload="loader()">
+
+  <!-- loader for splash screen -->
+  <div id="loading"></div>
+
+    <!-- navbar starts here  -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a href="./index.html"> <img class="logo" src="data:image/png;base64,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" alt="loading" width="100px" height="100px"></a>
+        <a class="navbar-brand" href="./index.html">Scotiabank</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./customers.html">Customers</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    <!-- navbar ends here  -->
+
+    <!-- here content starts here -->
+    <div class="container-fluid hero-content">
+      <div class="row align-items-center">
+        <div class="col-md-6 col-sm-12 text-center" data-aos="fade-up">
+          <h1>Start your Cash Transaction</h1>
+          <p class="lead muted">The fastest and safest to transfer the money</p>
+          <p>Welcome People</p>
+          <br>
+          <br>
+          <a class="get-started" href="./customers.html">Get Started</a>
+        </div>
+        <div class="col-md-6 col-sm-12 text-center" data-aos="fade-left">
+          <div class="hero-img-div">
+            <img class="hero-img" src="assets/media/hero-img.svg" alt="img-showing-money-transfer">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- here content ends here -->
+
+
+
+
+    <!-- footer starts here -->
+    <footer>
+      <hr>
+      <div class="row text-center">
+        <div class="col-md-6">
+          <p>This project is made by Jaisurya #June 2023 at GRIP.</p>
+        </div>
+        <div class="col-md-6 text-center">
+            <ul class="social-icons">
+              Contact Me:
+              <li><a target="_blank" class="github" href="https://github.com/JAISURYA2134"><i class="fab fa-github fa-2x"></i></a></li>
+              
+              <li><a target="_blank" class="linkedin" href="https://www.linkedin.com/in/jaisurya-s-6b720b237/"><i class="fab fa-linkedin fa-2x"></i></a></li>   
+            </ul>
+        </div>
+      </div>
+    </footer>
+    <!-- footer ends here -->
+
+    <!-- spalsh screen js -->
+    <script>
+      var preloader = document.getElementById("loading");
+      function loader(){
+        preloader.style.display = 'none';
+      }
+    </script>
+
+    <script src="assets/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
+
+    <!-- aos data  -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 700,
+      });
+    </script>
+    
+</body>
+</html>
